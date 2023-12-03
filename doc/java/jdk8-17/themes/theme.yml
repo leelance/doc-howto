@@ -1,0 +1,92 @@
+#引用默认配置
+extends: default
+
+#中文字体
+font:
+  catalog:
+    Noto Sans CJK:
+      normal: SourceHanSansSC-Regular.ttf
+      bold: SourceHanSansSC-Bold.ttf
+      italic: SourceHanSansSC-Regular.ttf
+      bold_italic: SourceHanSansSC-Bold.ttf
+
+    # Noto Serif supports Latin, Latin-1 Supplement, Latin Extended-A, Greek, Cyrillic, Vietnamese & an assortment of symbols
+    Noto Serif:
+      normal: notoserif-regular-subset.ttf
+      bold: notoserif-bold-subset.ttf
+      italic: notoserif-italic-subset.ttf
+      bold_italic: notoserif-bold_italic-subset.ttf
+
+    # M+ 1mn supports ASCII and the circled numbers used for conums
+    M+ 1mn:
+      normal: mplus1mn-regular-subset.ttf
+      bold: mplus1mn-bold-subset.ttf
+      italic: mplus1mn-italic-subset.ttf
+      bold_italic: mplus1mn-bold_italic-subset.ttf
+
+  fallbacks:
+    - Noto Sans CJK
+
+
+#封面
+title-page:
+  text-align: 'center'
+  title:
+    font-color: '#000000'
+    font-style: bold
+    font-size: 28
+  subtitle:
+    font-style: bold
+    font-size: 24
+    margin-top: 30
+  authors:
+    display: none
+  revision:
+    margin-top: 180
+
+# 表格样式
+table:
+  border-width: 1
+  border-color: 222222
+  grid-color: 222222
+  grid-width: 0.8
+  # grid-style: dashed
+  # caption:
+  #   align: left
+  head:
+    border-bottom-width: 0.8
+    background-color: '#CEE3F6'
+    line-height: 1.25
+    font-size: 12
+    font-style: bold
+  body:
+    stripe-background-color: EFEFEF
+  cell:
+    padding: 4
+
+image:
+  caption:
+    end: bottom
+    text-align: center
+
+# 页面背景和边距
+page:
+  background-image: image:bg.jpg[]
+  margin: [34.58mm, 26mm, 32.58mm, 28mm]
+
+# 页脚
+footer:
+  # columns: =90%
+  height: 0.8in
+  font-color: '#bababa'
+  font-family: 'Noto Serif'
+  font-size: 10
+  line-height: 1
+  recto:
+    right:
+      content: '{page-number} / {page-count}'
+  verso:
+    right:
+      content: $footer-recto-right-content
+    left:
+      content: ''

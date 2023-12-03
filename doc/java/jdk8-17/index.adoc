@@ -1,0 +1,17 @@
+
+= 餐饮服务: 统一接入规范
+:source-highlighter: highlight.js
+:author: lance
+:revdate: 2023-12.03
+:revnumber: 1.0.0
+include::config/config.adoc[]
+
+//版本修订说明
+include::common/version.adoc[leveloffset=+1]
+
+//概述
+include::common/summary.adoc[leveloffset=+1]
+
+== 针对业务的接口说明
+
+include::biz/index.adoc[leveloffset=+2]
