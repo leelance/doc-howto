@@ -34,9 +34,3 @@ ifndef::imagesdir[:imagesdir: ../../img]
 //文档类型
 :doctype: book
 :scripts: cjk
-//kroki 本地服务
-:kroki-server-url: http://172.18.80.16:8000/
-// :kroki-fetch-diagram: true
-//pdf中文字体
-:pdf-theme: book/themes/theme.yml
-:pdf-fontsdir: book/themes
