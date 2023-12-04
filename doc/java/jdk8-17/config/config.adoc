@@ -34,3 +34,7 @@ ifndef::imagesdir[:imagesdir: ../../img]
 //文档类型
 :doctype: book
 :scripts: cjk
+// :kroki-fetch-diagram: true
+//pdf中文字体
+:pdf-theme: themes/theme.yml
+:pdf-fontsdir: themes

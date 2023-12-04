@@ -4,16 +4,15 @@
 :author: lance
 :revdate: 2023-12.03
 :revnumber: 1.0.0
-:includedir: _includes
 
-include::{includedir}/config/config.adoc[]
+include::config/config.adoc[]
 
 //版本修订说明
-include::{includedir}/common/version.adoc[leveloffset=+1]
+include::common/version.adoc[leveloffset=+1]
 
 //概述
-include::{includedir}/common/summary.adoc[leveloffset=+1]
+include::common/summary.adoc[leveloffset=+1]
 
 == 针对业务的接口说明
 
-include::{includedir}/biz/index.adoc[leveloffset=+2]
+include::biz/index.adoc[leveloffset=+2]
