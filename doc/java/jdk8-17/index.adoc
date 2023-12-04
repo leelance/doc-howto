@@ -1,11 +1,47 @@
-
 = JDK升级文档
 :source-highlighter: highlight.js
 :author: lance
 :revdate: 2023-12.03
 :revnumber: 1.0.0
+//目录配置
+:toc: left
+:toclevels: 4
+:toc-title: 目录
+//引用时的文本样式
+:xrefstyle: full
+:!section-refsig:
+:!chapter-refsig:
+:appendix-refsig: 附录
+//移除Chapter
+:chapter-signifier:
+//代码高亮
+:source-highlighter: rouge
+//表格样式
+:table-stripes: even
+//中文提示标题
+:table-caption: 表
+:appendix-caption: 附录
+:important-caption: 重要
+:caution-caption: 警告
+:example-caption: 示例
+:figure-caption: 图
+:listing-caption: 列表
+:note-caption: 说明
+:tip-caption: 提示
+:warning-caption: 注意
+//章节标题自动添加序号
+:sectnums:
+:sectnumlevels: 5
+//章节标题变成自链接，可书签标记
+:sectlinks:
+//文档类型
+:doctype: book
+:scripts: cjk
+// :kroki-fetch-diagram: true
+//pdf中文字体
+:pdf-theme: themes/theme.yml
+:pdf-fontsdir: themes
 
-include::config/config.adoc[]
 
 //版本修订说明
 include::common/version.adoc[leveloffset=+1]
