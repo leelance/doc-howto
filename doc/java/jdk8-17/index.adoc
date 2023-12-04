@@ -49,6 +49,6 @@ include::common/version.adoc[leveloffset=+1]
 //概述
 include::common/summary.adoc[leveloffset=+1]
 
-== 针对业务的接口说明
+== 具体版本升级说明
 
 include::biz/index.adoc[leveloffset=+2]
