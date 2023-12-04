@@ -130,5 +130,61 @@ image::https://raw.githubusercontent.com/leelance/doc-howto/main/doc/java/jdk8-1
 * Flight Recorder,一个用于OS、JVM和基于JDK的事件的数据收集框架
 * 对Stream、Optional和Collection API的增强
 
-其重要特性是对 JDK 9 和 JDK 10 的改进，主要是针对流、集合等 API，以及新的 ZGC 垃圾收集器。
+其重要特性是对JDK9和JDK10的改进,主要是针对流、集合等API,以及新的ZGC垃圾收集器
+
+=== JDK12新特性(2019年3月)
+* Switch表达式语法扩展,支持返回值
+* 添加NumberFormat以格式化复数
+* 字符串支持transform和indent操作
+* 添加Files.mismatch(Path, Path)方法
+* Teeing Collector
+* 支持Unicode 11
+* Shenandoah GC，新的GC收集算法
+* 对G1收集器的优化将GC的垃圾划分为强制和可选两部分.强制部分将被回收,而可选部分可能不会被回收,提高了GC的效率
+
+其重要特性包括开关表达式语法扩展,G1收集器的优化,以及新的Shenandoah GC垃圾收集算法
+
+=== JDK13新特性(2019年9月)
+* Switch表达式得到扩展, Switch表达式增加了yield关键字以返回结果.该功能类似于return. 如果不返回结果,则使用break
+* 文本块升级为""".引入了文本块.您可以使用三个双引号（"""）表示文本块.在文本块内部,您不需要使用换行转义字符
+* SocketAPI进行了重构,对Socket的底层实现进行了优化,并引入了NIO
+* FileSystems.newFileSystem新方法
+* 对ZGC进行了优化,增强了ZGC以释放未使用的内存,并将长时间标记为空闲的堆内存空间返回给操作系统.旨在确保堆大小不小于配置的最小堆内存大小.如果最大堆大小与最小堆内存大小相同,则不会将内存释放到操作系统
+
+其重要特性包括ZGC的优化,将内存释放回操作系统,以及在底层socket实现中引入NIO。
+
+=== JDK14新特性(2020年3月)
+* Instanceof模式匹配和instanceof类型匹配语法简化,可以直接将值分配给对象,例如`if(obj instanceof String str)`.如果obj是字符串类型,则直接将值分配给str变量
+* 引入record类型,类似于Lombok的@Data注解.它可以自动生成构造函数、equals、getter等方法,类似于Lombok
+* Switch表达式标准化
+* 改进空指针NullPointerException的提示信息,打印具体方法抛出的空指针异常,避免在同一行代码中调用多个函数时无法判断哪个函数抛出异常的麻烦,便于异常排查
+* 删除了CMS垃圾收集器
+
+=== JDK15新特性(2020年9月)
+* EdDSA签名算法
+* 封闭类(预览版): 使用sealed关键字修改抽象类,以仅限制指定的子类实现或继承抽象类,以防止滥用抽象类
+* 隐藏类
+* 移除Nashorn JavaScript引擎
+* 改进java.net.DatagramSocket和java.net.MulticastSocket的底层实现
+
+=== JDK16新特性(2021年3月)
+* 允许在JDK C++源代码中使用C++ 14特性
+* ZGC性能优化,将ZGC线程栈处理从安全点移至并发阶段
+* 添加Unix域Socket通道
+* 弹性元空间能力
+* 提供jpackage工具,用于打包独立的Java应用程序
+
+JDK 16相当于正式引入了JDK14和JDK15的一些特性,如instanceof模式匹配、record引入等. JDK16成为最终版本
+
+=== JDK17新特性(2021年9月)(LTS版本)
+* 自由的Java许可证
+* JDK17将取代JDK11成为下一个长期支持版本。
+* Spring 6和Spring-Boot 3需要JDK17
+* 移除实验性的AOT和JIT编译器
+* 恢复始终严格的浮点定义
+* 正式引入封闭类以限制抽象类的实现
+* 统一日志异步刷新. 日志被写入缓存,然后异步刷新
+
+尽管JDK17是一个LTS版本,但它并没有引入显著的新功能(类似于JDK8和JDK11), 主要是对之前版本的集成和改进
+
 
