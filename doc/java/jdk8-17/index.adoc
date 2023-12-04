@@ -59,8 +59,6 @@
 
 //概述
 == 概述
-ifndef::rootdir[:rootdir: ..]
-ifndef::imagesdir[:imagesdir: {rootdir}/img]
 
 在2022年Spring6和Spring-Boot3发布，其最低依赖jdk版本: JDK17，跳过了JDK8到16的版本。如果我们考虑这个情景，可能有几个原因支持这一举措：
 
@@ -98,7 +96,39 @@ image::https://raw.githubusercontent.com/leelance/doc-howto/main/doc/java/jdk8-1
 
 == 具体版本升级说明
 
-=== JDK9新特性
+=== JDK9新特性(2017年9月)
+* 模块化
+* 提供了工厂方法,例如 List.of(),Set.of(),Map.of()和Map.ofEntries()
+* 接口支持私有方法
+* Optional类的改进
+* JAR包依赖兼容多个版本
+* JShell工具
+* 增强的Try-with-resources
+* 对Stream API的改进
+* 将G1设置为JVM的默认垃圾收集器
+* 支持HTTP2.0和WebSocket的API改进。
 
-第三方服务调用中城平台,登录注册中城平台,并返回当前用户的授权token
+=== JDK10新特性(2018年3月)
+* 局部变量类型推断,类似于JavaScript,可以使用var修改局部变量. 在编译后,会推断值的真实类型
+* 不可变集合的改进
+* 并行完整垃圾收集器G1以优化G1的延迟
+* 线程本地握手允许执行线程回调而不执行全局VM安全点. 一个单线程可以被停止
+* Optional中新增orElseThrow()方法
+* 类数据共享
+* Unicode语言标签扩展
+* 根证书
+
+其重要特性包括通过var关键字实现的局部变量类型推断,使得Java语言成为一种弱类型语言,并且JVM中的G1垃圾收集器从单线程变为多线程并行处理,从而减少了G1暂停时间
+
+=== JDK11新特性(2018年9月)(LTS版本)
+* 添加了一些字符串处理方法
+* Lambda参数的局部变量语法
+* HTTP客户端重写支持HTTP/1.1、HTTP/2和WebSockets
+* 运行单个Java源代码文件,例如java Test.java
+* ZGC:可伸缩且低延迟的垃圾收集器.ZGC可以看作比G1更细粒度的内存管理策略.由于内存的连续分配和回收将产生大量的内存碎片空间,需要一种碎片整理策略.在整理碎片期间,内存引用的线程需要逻辑上暂停.这个过程被称为"Stop the World".只有在整个过程完成后,线程逻辑才能继续运行.(并行回收)
+* 支持TLS1.3协议
+* Flight Recorder,一个用于OS、JVM和基于JDK的事件的数据收集框架
+* 对Stream、Optional和Collection API的增强
+
+其重要特性是对 JDK 9 和 JDK 10 的改进，主要是针对流、集合等 API，以及新的 ZGC 垃圾收集器。
 
