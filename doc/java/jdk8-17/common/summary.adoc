@@ -24,7 +24,7 @@ Java的每个版本通常都引入新功能、性能改进和增强功能。通�
 
 Java有一个可预测的发布周期，较旧的版本最终会到达其生命周期的终点。通过跳过JDK版本8到16，Spring可能鼓励用户摆脱过时且不受支持的Java版本。
 
-image::../../../img/jdk_lts.png[JDK LTS]
+image::../img/jdk_lts.png[JDK LTS]
 
 
 - JDK9新特性
