@@ -4,7 +4,7 @@
 :author: lance
 :revdate: 2023-12.03
 :revnumber: 1.0.0
-:includedir: ./
+:includedir: .
 
 include::{includedir}/config/config.adoc[]
 
