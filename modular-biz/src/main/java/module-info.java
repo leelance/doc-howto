@@ -12,6 +12,4 @@ module modular.lance.biz {
 
   //custom dependency
   requires modular.lance.common;
-
-  opens com.lance.doc.biz to spring.web, spring.boot, spring.context, spring.boot.autoconfigure;
 }

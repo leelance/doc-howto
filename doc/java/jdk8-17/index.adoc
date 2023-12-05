@@ -98,6 +98,30 @@ image::https://raw.githubusercontent.com/leelance/doc-howto/main/doc/java/jdk8-1
 
 === JDK9新特性(2017年9月)
 * 模块化
+
+-----
+参考: modular-common, modular-biz两个项目的module-info.java配置
+
+module modular.lance.biz {
+  // spring dependency
+  requires spring.web;
+  requires spring.boot;
+  requires spring.context;
+  requires spring.boot.autoconfigure;
+
+  // common dependency
+  requires lombok;
+  requires org.slf4j;
+  requires com.google.common;
+
+  //custom dependency
+  requires modular.lance.common;
+}
+
+run start:
+mvn install && mvn spring-boot:run -pl modular-biz
+-----
+
 * 提供了工厂方法,例如 List.of(),Set.of(),Map.of()和Map.ofEntries()
 * 接口支持私有方法
 * Optional类的改进
@@ -107,6 +131,7 @@ image::https://raw.githubusercontent.com/leelance/doc-howto/main/doc/java/jdk8-1
 * 对Stream API的改进
 * 将G1设置为JVM的默认垃圾收集器
 * 支持HTTP2.0和WebSocket的API改进。
+
 
 === JDK10新特性(2018年3月)
 * 局部变量类型推断,类似于JavaScript,可以使用var修改局部变量. 在编译后,会推断值的真实类型
