@@ -9,6 +9,7 @@ module modular.lance.biz {
   requires lombok;
   requires org.slf4j;
   requires com.google.common;
+  requires java.net.http;
 
   //custom dependency
   requires modular.lance.common;

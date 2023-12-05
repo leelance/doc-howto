@@ -53,6 +53,49 @@
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
+				<executions>
+					<execution>
+						<id>compile-java-8</id>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<source>1.8</source>
+							<target>1.8</target>
+							<compileSourceRoots>
+								<compileSourceRoot>${project.basedir}/src/main/java8</compileSourceRoot>
+							</compileSourceRoots>
+							<outputDirectory>${project.build.outputDirectory}/META-INF/versions/8</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>compile-java-17</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<release>17</release>
+							<compileSourceRoots>
+								<compileSourceRoot>${project.basedir}/src/main/java</compileSourceRoot>
+							</compileSourceRoots>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Multi-Release>true</Multi-Release>
+						</manifestEntries>
+						<manifest>
+							<mainClass>com.lance.doc.biz.MoBizApplication</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

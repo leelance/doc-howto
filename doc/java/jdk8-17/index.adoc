@@ -121,17 +121,177 @@ module modular.lance.biz {
 run start:
 mvn install && mvn spring-boot:run -pl modular-biz
 -----
-
 * 提供了工厂方法,例如 List.of(),Set.of(),Map.of()和Map.ofEntries()
-* 接口支持私有方法
-* Optional类的改进
-* JAR包依赖兼容多个版本
-* JShell工具
-* 增强的Try-with-resources
-* 对Stream API的改进
-* 将G1设置为JVM的默认垃圾收集器
-* 支持HTTP2.0和WebSocket的API改进。
+----
+  @Test
+  void of() {
+    List<String> colors = List.of("red", "green", "yellow", "black");
+    log.info("===>color: {}", colors);
 
+    Set<Integer> nums = Set.of(1, 2, 3, 4, 5);
+    log.info("===>num: {}", nums);
+
+    Map<String, Object> ganders = Map.of("1", "man", "2", "female");
+    log.info("===>ganders: {}", ganders);
+
+    Map<String, Object> books = Map.ofEntries(Map.entry("Java", "jdk17"), Map.entry("redis", "v6.0.2"));
+    log.info("===>books: {}", books);
+  }
+----
+* 接口支持私有方法
+----
+  interface Encode {
+    /**
+     * Public abstract method (default in pre-Java 8 interfaces)
+     */
+    void encode();
+
+    /**
+     * Public default method (introduced in Java 8)
+     */
+    default void base64Encode(String data) {
+      //Default method in interface
+      privateMethod(data);
+    }
+
+    /**
+     * Private method (introduced in Java 9)
+     */
+    private void privateMethod(String data) {
+      Base64.getEncoder().encodeToString(data.getBytes(StandardCharsets.UTF_8));
+    }
+  }
+----
+* Optional类的改进
+----
+ @Test
+  void option() {
+    //ifPresentOrElse
+    Optional<String> optional = Optional.of("Hello world.");
+    optional.ifPresentOrElse(
+        val -> log.info("===>Value: {}", val),
+        () -> log.info("===>Value is null")
+    );
+
+    // OR
+    Optional<String> first = Optional.empty();
+    Optional<String> second = Optional.of("Hello world");
+
+    Optional<String> result = first.or(() -> second);
+    log.info("===>result: {}", result.get());
+
+    // Stream
+    Optional<String> optionalValue = Optional.of("Hello");
+    optionalValue.stream().forEach(s -> log.info("===>{}", s));
+  }
+----
+* JAR包依赖兼容多个版本
+----
+jdk8: src/main/java
+jdk9: src/main/java9
+
+pom.xml 配置如下:
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.0</version>
+    <executions>
+        <execution>
+            <id>compile-java-9</id>
+            <goals>
+                <goal>compile</goal>
+            </goals>
+            <configuration>
+                <source>9</source>
+                <target>9</target>
+                <compileSourceRoots>
+                    <compileSourceRoot>${project.basedir}/src/main/java9</compileSourceRoot>
+                </compileSourceRoots>
+                <outputDirectory>${project.build.outputDirectory}/META-INF/versions/9</outputDirectory>
+            </configuration>
+        </execution>
+        <execution>
+            <id>compile-java-8</id>
+            <phase>compile</phase>
+            <goals>
+                <goal>compile</goal>
+            </goals>
+            <configuration>
+                <release>1.8</release>
+                <compileSourceRoots>
+                    <compileSourceRoot>${project.basedir}/src/main/java</compileSourceRoot>
+                </compileSourceRoots>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+----
+* JShell工具
+----
+打开终端输入: jshell, 启动JShell工具, 如下显示:
+jshell> int x = 10;
+x ==> 10
+----
+* 增强的Try-with-resources
+----
+  void readData() throws FileNotFoundException {
+    FileOutputStream fos = new FileOutputStream("hello.txt");
+    try (fos) {
+      fos.write("Hello world.".getBytes());
+    } catch (IOException e) {
+      log.error("===>read file fail: ", e);
+    }
+  }
+----
+* 对Stream API的改进
+----
+  void takeWhile() {
+    List<String> chars = List.of("a", "b", "c", "", "e", "f");
+    // abc
+    String take = chars.stream().takeWhile(s -> !s.isBlank()).collect(Collectors.joining());
+    //ef
+    String drop = chars.stream().dropWhile(s -> !s.isBlank()).collect(Collectors.joining());
+
+    log.info("===>take: {}", take);
+    log.info("===>drop: {}", drop);
+
+    Stream<String> stream = Stream.ofNullable("Hello world");
+    Stream<String> nullStream = Stream.ofNullable(null);
+
+    //02468
+    String nums = Stream.iterate(0, n -> n < 10, n -> n + 2).map(String::valueOf).collect(Collectors.joining());
+    log.info("===>nums: {}", nums);
+  }
+----
+* 将G1设置为JVM的默认垃圾收集器
+----
+java -XX:+UseG1GC -jar modular-biz.jar
+----
+* 支持HTTP2.0和WebSocket的API改进
+----
+ void httpClient() throws Exception {
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(new URI("https://postman-echo.com/get"))
+        .version(HttpClient.Version.HTTP_2)
+        .header("x-traceId", "100000001")
+        .timeout(Duration.ofSeconds(10L))
+        .build();
+
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+    log.info("===>response code: {}", response.statusCode());
+    log.info("===>response body: {}", response.body());
+
+    HttpClient httpClient = HttpClient.newHttpClient();
+    WebSocket webSocket = httpClient.newWebSocketBuilder()
+        .buildAsync(URI.create("wss://127.0.0.1:9001"), new WebSocketListener())
+        .get();
+
+    webSocket.sendText("Hello, WebSocket!", true);
+    webSocket.sendClose(WebSocket.NORMAL_CLOSURE, "Goodbye!");
+  }
+----
 
 === JDK10新特性(2018年3月)
 * 局部变量类型推断,类似于JavaScript,可以使用var修改局部变量. 在编译后,会推断值的真实类型
