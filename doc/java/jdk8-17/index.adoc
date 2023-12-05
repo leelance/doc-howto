@@ -295,11 +295,49 @@ java -XX:+UseG1GC -jar modular-biz.jar
 
 === JDK10新特性(2018年3月)
 * 局部变量类型推断,类似于JavaScript,可以使用var修改局部变量. 在编译后,会推断值的真实类型
+----
+  void localVariable() {
+    var bookName = "Java book.";
+    log.info("===>{}", bookName.getClass());
+
+    var balls = List.of("football", "basketball");
+    log.info("===>{}", balls.getClass());
+  }
+----
 * 不可变集合的改进
+----
+  void immutableCollection(){
+    List<String> list = Arrays.asList("Red", "Green", "Yellow");
+
+    var imList = list.stream().collect(Collectors.toUnmodifiableList());
+    log.info("===>{}", imList.getClass());
+
+    var toList = list.stream().toList();
+    log.info("===>{}", toList.getClass());
+
+    var thenList = list.stream().collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+    log.info("===>{}", thenList.getClass());
+  }
+----
 * 并行完整垃圾收集器G1以优化G1的延迟
-* 线程本地握手允许执行线程回调而不执行全局VM安全点. 一个单线程可以被停止
+* Thread-Local Handshakes允许执行线程回调而不执行全局VM安全点. 一个单线程可以被停止
 * Optional中新增orElseThrow()方法
+----
+  void orElseThrow() {
+    //Optional<String> optional = Optional.of("hello world");
+    Optional<String> optional = Optional.empty();
+    var result = optional.orElseThrow(RuntimeException::new);
+
+    log.info("===>{}", result);
+  }
+----
 * 类数据共享
+----
+1.存档生成(在构建时): 在构建时,系统管理员或开发人员可以使用-Xshare:dump选项创建CDS存档,此命令创建包含类元数据的共享存档文件
+>> java -Xshare:dump
+2存档使用(在运行时): 在运行时, JVM实例可以使用-Xshare:on选项启动以使用共享存档文件
+>> java -Xshare:on -jar modular-biz.jar
+----
 * Unicode语言标签扩展
 * 根证书
 
