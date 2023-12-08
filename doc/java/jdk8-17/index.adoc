@@ -345,9 +345,42 @@ java -XX:+UseG1GC -jar modular-biz.jar
 
 === JDK11新特性(2018年9月)(LTS版本)
 * 添加了一些字符串处理方法
+----
+  void repeat() {
+    String text = "hello";
+    String item = text.repeat(4);
+    log.info("===>repeat: {}", item);
+    Assertions.assertNotNull(item);
+
+    //\r\n
+    String books = """
+        Java
+        Spring
+        Scala
+        """;
+    Stream<String> lines = books.lines();
+    log.info("===>lines: {}", lines.collect(Collectors.joining(",")));
+
+    //strip, Returns a string whose value is this string, with all leading and trailing white space removed.
+    log.info("===>strip: {}", books.strip());
+    log.info("===>strip lead: {}", books.stripLeading());
+    log.info("===>strip trail: {}", books.stripTrailing());
+
+    boolean isNull = "".isBlank();
+    boolean isEmpty = "".isEmpty();
+    log.info("===>is null: {}, is empty: {}", isNull, isEmpty);
+  }
+----
 * Lambda参数的局部变量语法
+----
+Function<String, Long> function = (@NonNull var item) -> item.length() * 1000L;
+Assertions.assertNotNull(function);
+----
 * HTTP客户端重写支持HTTP/1.1、HTTP/2和WebSockets
 * 运行单个Java源代码文件,例如java Test.java
+----
+java Test.java
+----
 * ZGC:可伸缩且低延迟的垃圾收集器.ZGC可以看作比G1更细粒度的内存管理策略.由于内存的连续分配和回收将产生大量的内存碎片空间,需要一种碎片整理策略.在整理碎片期间,内存引用的线程需要逻辑上暂停.这个过程被称为"Stop the World".只有在整个过程完成后,线程逻辑才能继续运行.(并行回收)
 * 支持TLS1.3协议
 * Flight Recorder,一个用于OS、JVM和基于JDK的事件的数据收集框架
