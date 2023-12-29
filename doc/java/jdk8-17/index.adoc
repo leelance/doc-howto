@@ -390,6 +390,24 @@ java Test.java
 
 === JDK12新特性(2019年3月)
 * Switch表达式语法扩展,支持返回值
+----
+  @Test
+  void switchExpression() {
+    int month = (int) (System.currentTimeMillis() % 12) + 1;
+    log.info("===>month: {}", month);
+    String season = switch (month) {
+      case 12, 1, 2 -> "Winter";
+      case 3, 4, 5 -> "Spring";
+      case 6, 7, 8 -> "Summer";
+      case 9, 10, 11 -> "Autumn";
+      default -> {
+        log.info("invalid month number");
+        yield "invalid month number";
+      }
+    };
+    log.info("===>season: {}", season);
+  }
+----
 * 添加NumberFormat以格式化复数
 * 字符串支持transform和indent操作
 * 添加Files.mismatch(Path, Path)方法
